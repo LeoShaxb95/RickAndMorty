@@ -128,7 +128,6 @@ class EpisodesVC: BaseVC {
         searchTextField.set(height: 56)
         filtersButton.set(height: 56)
         filterIconButton.set(width: 20, height: 20)
-       // collectionView.set(height: 720)
 
         NSLayoutConstraint.activate([
             titleImageView.centerXAnchor.constraint(
@@ -158,6 +157,7 @@ class EpisodesVC: BaseVC {
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(EpisodesCollectionViewCell.self, forCellWithReuseIdentifier: EpisodesCollectionViewCell.identifier)
+
     }
     
     // MARK: Callbacks
@@ -175,6 +175,8 @@ extension EpisodesVC: UICollectionViewDataSource {
             withReuseIdentifier: EpisodesCollectionViewCell.identifier,
             for: indexPath) as? EpisodesCollectionViewCell
         else { return UICollectionViewCell() }
+        
+        cell.delegate = self
         
         cell.imageView.image = UIImage(named: "profileImage")
         cell.nameLabel.text = "Rick Sanchez"
@@ -202,3 +204,12 @@ extension EpisodesVC: UICollectionViewDelegateFlowLayout {
         return 60
     }
 }
+
+extension EpisodesVC: EpisodesCollectionViewCellDelegate {
+    func didTapFavoriteButton(in cell: EpisodesCollectionViewCell) {
+        print("dzec")
+        // Handle the favorite button tap here
+        // You can identify the specific cell if needed
+    }
+}
+

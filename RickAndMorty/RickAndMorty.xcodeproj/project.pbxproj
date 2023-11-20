@@ -31,6 +31,8 @@
 		0160B8D22B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8D12B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift */; };
 		0160B8D42B0AAC3E00B7DDE3 /* UITableView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8D32B0AAC3E00B7DDE3 /* UITableView+dequeue.swift */; };
 		0160B8D62B0AAF9400B7DDE3 /* UITableView+register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8D52B0AAF9400B7DDE3 /* UITableView+register.swift */; };
+		0160B8D92B0BD34E00B7DDE3 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8D82B0BD34E00B7DDE3 /* FavoritesVC.swift */; };
+		0160B8DB2B0BD3CD00B7DDE3 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8DA2B0BD3CD00B7DDE3 /* FavoritesPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		0160B8D12B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		0160B8D32B0AAC3E00B7DDE3 /* UITableView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+dequeue.swift"; sourceTree = "<group>"; };
 		0160B8D52B0AAF9400B7DDE3 /* UITableView+register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+register.swift"; sourceTree = "<group>"; };
+		0160B8D82B0BD34E00B7DDE3 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
+		0160B8DA2B0BD3CD00B7DDE3 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 				0160B8AE2B0814DF00B7DDE3 /* DefaultScreensFactory.swift */,
 				0160B8B02B0821D200B7DDE3 /* Episodes */,
 				0160B8C92B0A511300B7DDE3 /* CharacterDetails */,
+				0160B8D72B0BD32900B7DDE3 /* Favorites */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -207,6 +212,23 @@
 				0160B8CE2B0AA2A100B7DDE3 /* CharacterDetailsDataSource.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0160B8D72B0BD32900B7DDE3 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				0160B8DC2B0BD5DF00B7DDE3 /* View */,
+				0160B8DA2B0BD3CD00B7DDE3 /* FavoritesPresenter.swift */,
+				0160B8D82B0BD34E00B7DDE3 /* FavoritesVC.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		0160B8DC2B0BD5DF00B7DDE3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,7 +313,9 @@
 				0160B8AD2B0814AD00B7DDE3 /* Routable.swift in Sources */,
 				0160B8BB2B082A3A00B7DDE3 /* UIView+pin.swift in Sources */,
 				0160B88D2B080E1F00B7DDE3 /* AppDelegate.swift in Sources */,
+				0160B8D92B0BD34E00B7DDE3 /* FavoritesVC.swift in Sources */,
 				0160B8A82B08145A00B7DDE3 /* DefaultRouter.swift in Sources */,
+				0160B8DB2B0BD3CD00B7DDE3 /* FavoritesPresenter.swift in Sources */,
 				0160B8CB2B0A512A00B7DDE3 /* CharacterDetailsVC.swift in Sources */,
 				0160B8C22B08A61100B7DDE3 /* UIColor+hex.swift in Sources */,
 				0160B8AF2B0814DF00B7DDE3 /* DefaultScreensFactory.swift in Sources */,

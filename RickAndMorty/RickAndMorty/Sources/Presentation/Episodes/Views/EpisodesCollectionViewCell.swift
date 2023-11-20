@@ -1,5 +1,5 @@
 //
-//  collectionViewCelll.swift
+//  EpisodesCollectionViewCell.swift
 //  RickAndMorty
 //
 //  Created by Levon Shaxbazyan on 18.11.23.
@@ -7,14 +7,26 @@
 
 import UIKit
 
+protocol EpisodesCollectionViewCellDelegate: AnyObject {
+    func didTapFavoriteButton(in cell: EpisodesCollectionViewCell)
+}
+
 class EpisodesCollectionViewCell: UICollectionViewCell {
     
+    enum FavoriteButtonState {
+        case checked
+        case unchecked
+    }
+    
     static let identifier = "EpisodesCollectionViewCell"
+    private var favoriteButtonState: FavoriteButtonState = .unchecked
+    weak var delegate: EpisodesCollectionViewCellDelegate?
     
     // MARK: - Subviews
     
     lazy var mainView: UIView = {
         let v = UIView()
+        v.isUserInteractionEnabled = true
         
         return v
     }()
@@ -57,6 +69,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         let v = UIView()
         v.backgroundColor = UIColor(hex: "#F9F9F9")
         v.layer.cornerRadius = 16
+        v.isUserInteractionEnabled = true
         
         return v
     }()
@@ -64,6 +77,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     let episodePlayButton: UIButton = {
         let v = UIButton()
         v.setImage(UIImage(named: "Play"), for: .normal)
+        v.tag = 0
 
         return v
     }()
@@ -77,7 +91,12 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     
     let episodeFavoriteButton: UIButton = {
         let v = UIButton()
-        v.setImage(UIImage(named: "Favorite"), for: .normal)
+        v.tag = 1
+        v.setImage(UIImage(named: "FavoriteEmpty"), for: .normal)
+        v.isUserInteractionEnabled = true
+        v.isEnabled = true
+        v.addTarget(self, action: #selector(didTapFavoriteButton),
+                    for: .touchUpInside)
 
         return v
     }()
@@ -108,25 +127,26 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     
     private func setupSubviews() {
         contentView.addSubview(mainView)
+        contentView.addSubview(episodeFavoriteButton)
         contentView.layer.cornerRadius = 16
         contentView.backgroundColor = UIColor(hex: "#FAFAFA")
         
         mainView.addSubviews([
             imageView,
             nameStackView,
-            episodeCardView
-        ])
-        
-        episodeCardView.addSubviews([
-            episodePlayButton,
-            episodeNameLabel,
-            episodeFavoriteButton
+            episodeCardView,
         ])
         
         nameStackView.addArrangedSubviews([
             paddingView,
             nameLabel
         ])
+        
+        episodeCardView.addSubviews([
+            episodePlayButton,
+            episodeNameLabel
+        ])
+        
         
     }
 
@@ -157,9 +177,9 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
                 equalTo: episodeCardView.centerYAnchor),
             
             episodeFavoriteButton.trailingAnchor.constraint(
-                equalTo: episodeCardView.trailingAnchor, constant: -20),
+                equalTo: contentView.trailingAnchor, constant: -20),
             episodeFavoriteButton.centerYAnchor.constraint(
-                equalTo: episodeCardView.centerYAnchor),
+                equalTo: episodePlayButton.centerYAnchor)
         ])
         
         paddingView.set(width: 30)
@@ -194,4 +214,28 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
 
         self.layer.shadowPath = shadowPath.cgPath
     }
+    
+    // MARK: - CallBacks
+    
+    @objc func didTapFavoriteButton(sender: UIButton) {
+        delegate?.didTapFavoriteButton(in: self)
+        var imageName = ""
+        
+        switch favoriteButtonState {
+        case .checked:
+            imageName = "FavoriteEmpty"
+            favoriteButtonState = .unchecked
+        case .unchecked:
+            imageName = "FavoriteFill"
+            favoriteButtonState = .checked
+        }
+        
+        var image = UIImage(named: imageName)
+        episodeFavoriteButton.setImage(image, for: .normal)
+    }
+
+
+    
 }
+
+
