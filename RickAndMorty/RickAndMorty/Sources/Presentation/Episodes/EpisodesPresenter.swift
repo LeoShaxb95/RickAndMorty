@@ -7,10 +7,29 @@
 
 import UIKit
 
-protocol EpisodesPresenterProtocol {}
+protocol EpisodesPresenterProtocol {
+    func moveToCharacterDetailsScreen()
+}
 
-final class EpisodesPresenter {}
+struct EpisodesOutput {
+    var onMoveToCharacterDetails: (() -> Void)!
+}
 
-extension EpisodesPresenter: EpisodesPresenterProtocol {}
+final class EpisodesPresenter {
+    private let output: EpisodesOutput
+
+    // MARK: - Init
+    
+    init(output: EpisodesOutput) {
+        self.output = output
+    }
+    
+}
+
+extension EpisodesPresenter: EpisodesPresenterProtocol {
+    func moveToCharacterDetailsScreen() {
+        output.onMoveToCharacterDetails()
+    }
+}
 
 

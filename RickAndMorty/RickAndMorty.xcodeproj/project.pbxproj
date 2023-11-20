@@ -25,6 +25,12 @@
 		0160B8C22B08A61100B7DDE3 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8C12B08A61100B7DDE3 /* UIColor+hex.swift */; };
 		0160B8C52B08FAD600B7DDE3 /* EpisodesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8C42B08FAD600B7DDE3 /* EpisodesCollectionViewCell.swift */; };
 		0160B8C72B08FD3300B7DDE3 /* UIStackView+addArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8C62B08FD3300B7DDE3 /* UIStackView+addArrangedSubviews.swift */; };
+		0160B8CB2B0A512A00B7DDE3 /* CharacterDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8CA2B0A512900B7DDE3 /* CharacterDetailsVC.swift */; };
+		0160B8CD2B0A516A00B7DDE3 /* CharacterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8CC2B0A516A00B7DDE3 /* CharacterPresenter.swift */; };
+		0160B8CF2B0AA2A100B7DDE3 /* CharacterDetailsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8CE2B0AA2A100B7DDE3 /* CharacterDetailsDataSource.swift */; };
+		0160B8D22B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8D12B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift */; };
+		0160B8D42B0AAC3E00B7DDE3 /* UITableView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8D32B0AAC3E00B7DDE3 /* UITableView+dequeue.swift */; };
+		0160B8D62B0AAF9400B7DDE3 /* UITableView+register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8D52B0AAF9400B7DDE3 /* UITableView+register.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +54,12 @@
 		0160B8C12B08A61100B7DDE3 /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		0160B8C42B08FAD600B7DDE3 /* EpisodesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesCollectionViewCell.swift; sourceTree = "<group>"; };
 		0160B8C62B08FD3300B7DDE3 /* UIStackView+addArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+addArrangedSubviews.swift"; sourceTree = "<group>"; };
+		0160B8CA2B0A512900B7DDE3 /* CharacterDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsVC.swift; sourceTree = "<group>"; };
+		0160B8CC2B0A516A00B7DDE3 /* CharacterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterPresenter.swift; sourceTree = "<group>"; };
+		0160B8CE2B0AA2A100B7DDE3 /* CharacterDetailsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsDataSource.swift; sourceTree = "<group>"; };
+		0160B8D12B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		0160B8D32B0AAC3E00B7DDE3 /* UITableView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+dequeue.swift"; sourceTree = "<group>"; };
+		0160B8D52B0AAF9400B7DDE3 /* UITableView+register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+register.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +143,7 @@
 			children = (
 				0160B8AE2B0814DF00B7DDE3 /* DefaultScreensFactory.swift */,
 				0160B8B02B0821D200B7DDE3 /* Episodes */,
+				0160B8C92B0A511300B7DDE3 /* CharacterDetails */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -163,6 +176,8 @@
 				0160B8BA2B082A3A00B7DDE3 /* UIView+pin.swift */,
 				0160B8C12B08A61100B7DDE3 /* UIColor+hex.swift */,
 				0160B8C62B08FD3300B7DDE3 /* UIStackView+addArrangedSubviews.swift */,
+				0160B8D32B0AAC3E00B7DDE3 /* UITableView+dequeue.swift */,
+				0160B8D52B0AAF9400B7DDE3 /* UITableView+register.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -171,6 +186,25 @@
 			isa = PBXGroup;
 			children = (
 				0160B8C42B08FAD600B7DDE3 /* EpisodesCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0160B8C92B0A511300B7DDE3 /* CharacterDetails */ = {
+			isa = PBXGroup;
+			children = (
+				0160B8D02B0AA2C100B7DDE3 /* Views */,
+				0160B8CC2B0A516A00B7DDE3 /* CharacterPresenter.swift */,
+				0160B8CA2B0A512900B7DDE3 /* CharacterDetailsVC.swift */,
+			);
+			path = CharacterDetails;
+			sourceTree = "<group>";
+		};
+		0160B8D02B0AA2C100B7DDE3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0160B8D12B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift */,
+				0160B8CE2B0AA2A100B7DDE3 /* CharacterDetailsDataSource.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,16 +284,22 @@
 				0160B8C52B08FAD600B7DDE3 /* EpisodesCollectionViewCell.swift in Sources */,
 				0160B8B92B08258D00B7DDE3 /* prepareForAutolayout.swift in Sources */,
 				0160B8B52B08241200B7DDE3 /* UIView+sizeConstraints.swift in Sources */,
+				0160B8D22B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift in Sources */,
 				0160B8C72B08FD3300B7DDE3 /* UIStackView+addArrangedSubviews.swift in Sources */,
 				0160B8AB2B08149100B7DDE3 /* Presentable.swift in Sources */,
+				0160B8CD2B0A516A00B7DDE3 /* CharacterPresenter.swift in Sources */,
 				0160B8AD2B0814AD00B7DDE3 /* Routable.swift in Sources */,
 				0160B8BB2B082A3A00B7DDE3 /* UIView+pin.swift in Sources */,
 				0160B88D2B080E1F00B7DDE3 /* AppDelegate.swift in Sources */,
 				0160B8A82B08145A00B7DDE3 /* DefaultRouter.swift in Sources */,
+				0160B8CB2B0A512A00B7DDE3 /* CharacterDetailsVC.swift in Sources */,
 				0160B8C22B08A61100B7DDE3 /* UIColor+hex.swift in Sources */,
 				0160B8AF2B0814DF00B7DDE3 /* DefaultScreensFactory.swift in Sources */,
+				0160B8D42B0AAC3E00B7DDE3 /* UITableView+dequeue.swift in Sources */,
 				0160B88F2B080E1F00B7DDE3 /* SceneDelegate.swift in Sources */,
+				0160B8D62B0AAF9400B7DDE3 /* UITableView+register.swift in Sources */,
 				0160B8A22B08131000B7DDE3 /* BaseVC.swift in Sources */,
+				0160B8CF2B0AA2A100B7DDE3 /* CharacterDetailsDataSource.swift in Sources */,
 				0160B8B72B08244400B7DDE3 /* UIView+addSubviews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
