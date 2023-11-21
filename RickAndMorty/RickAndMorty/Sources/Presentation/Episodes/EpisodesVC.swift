@@ -92,7 +92,8 @@ class EpisodesVC: BaseVC {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
+        self.tabBarItem.selectedImage = UIImage(named: "HomeSelected")
+
         setupSubviews()
         bind()
         collectionViewConfigurations()

@@ -187,7 +187,7 @@ final class CharacterDetailsVC: BaseVC {
     // MARK: Callbacks
     
     @objc func backButtonAction(sender: UIButton) {
-        print("back button tapped")
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

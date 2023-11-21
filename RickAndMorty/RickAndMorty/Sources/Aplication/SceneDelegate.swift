@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 private extension SceneDelegate {
     func willConnectToSession(window: UIWindow) {
         window.makeKeyAndVisible()
-        let vc = DefaultScreensFactory.shared.makeEpisodes()
+        let vc = DefaultScreensFactory.shared.makeHome()
         SceneDelegate.router?.setRoot(module: vc)
     }
 }
