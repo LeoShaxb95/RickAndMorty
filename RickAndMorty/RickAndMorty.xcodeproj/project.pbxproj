@@ -35,6 +35,7 @@
 		0160B8DB2B0BD3CD00B7DDE3 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8DA2B0BD3CD00B7DDE3 /* FavoritesPresenter.swift */; };
 		0160B8E42B0C91DC00B7DDE3 /* HomeTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8E32B0C91DC00B7DDE3 /* HomeTabBar.swift */; };
 		0160B8E62B0C93DB00B7DDE3 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8E52B0C93DB00B7DDE3 /* HomeTabBarController.swift */; };
+		0160B8E82B0CF40200B7DDE3 /* UIControl+interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160B8E72B0CF40200B7DDE3 /* UIControl+interaction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		0160B8DA2B0BD3CD00B7DDE3 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
 		0160B8E32B0C91DC00B7DDE3 /* HomeTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBar.swift; sourceTree = "<group>"; };
 		0160B8E52B0C93DB00B7DDE3 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
+		0160B8E72B0CF40200B7DDE3 /* UIControl+interaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+interaction.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				0160B8C62B08FD3300B7DDE3 /* UIStackView+addArrangedSubviews.swift */,
 				0160B8D32B0AAC3E00B7DDE3 /* UITableView+dequeue.swift */,
 				0160B8D52B0AAF9400B7DDE3 /* UITableView+register.swift */,
+				0160B8E72B0CF40200B7DDE3 /* UIControl+interaction.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				0160B8B52B08241200B7DDE3 /* UIView+sizeConstraints.swift in Sources */,
 				0160B8D22B0AA32F00B7DDE3 /* CharacterDetailsTableViewCell.swift in Sources */,
 				0160B8C72B08FD3300B7DDE3 /* UIStackView+addArrangedSubviews.swift in Sources */,
+				0160B8E82B0CF40200B7DDE3 /* UIControl+interaction.swift in Sources */,
 				0160B8AB2B08149100B7DDE3 /* Presentable.swift in Sources */,
 				0160B8CD2B0A516A00B7DDE3 /* CharacterPresenter.swift in Sources */,
 				0160B8AD2B0814AD00B7DDE3 /* Routable.swift in Sources */,
