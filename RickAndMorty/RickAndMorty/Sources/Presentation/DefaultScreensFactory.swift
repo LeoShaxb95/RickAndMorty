@@ -8,9 +8,10 @@
 import UIKit
 
 protocol ScreensFactory {
+    func makeLaunchScreen() -> LaunchScreenVC
     func makeHome() -> HomeTabBarController
     func makeEpisodes() -> EpisodesVC
-    func makeCharacterDetails() -> CharacterDetailsVC
+    func makeCharacterDetails(model: Custom) -> CharacterDetailsVC
     func makeFavorites() -> FavoritesVC
 }
 
@@ -18,6 +19,22 @@ class DefaultScreensFactory: ScreensFactory {
   
     public static let shared: ScreensFactory  = DefaultScreensFactory()
     private init() {}
+    
+    func makeLaunchScreen() -> LaunchScreenVC {
+        
+        var output = LaunchScreenOutput()
+        
+        output.onMoveToHome = { [weak self] in
+            guard let self else { return }
+            let vc = self.makeHome()
+            SceneDelegate.router?.push(module: vc, animated: true)
+        }
+        
+        let presenter = LaunchScreenPresenter(output: output)
+        let vc = LaunchScreenVC(presenter: presenter)
+        
+        return vc
+    }
     
     func makeHome() -> HomeTabBarController {
         let item1 =  self.makeEpisodes()
@@ -29,35 +46,42 @@ class DefaultScreensFactory: ScreensFactory {
     func makeEpisodes() -> EpisodesVC {
         var output = EpisodesOutput()
         
-        output.onMoveToCharacterDetails = { [weak self] in
+        output.onMoveToCharacterDetails = { [weak self] model in
             guard let self else { return }
-            let vc = self.makeCharacterDetails()
+            let vc = self.makeCharacterDetails(model: model)
             SceneDelegate.router?.push(module: vc, animated: true)
         }
         
         let presenter = EpisodesPresenter(output: output)
-        let vc = EpisodesVC(presenter: presenter)
+        let apiManager = APIManager() as ApiManagerProtocol
+        let cacheManager = CacheManager() as CacheManagerProtocol
+        
+        let vc = EpisodesVC(presenter: presenter,
+                            apiManager: apiManager,
+                            cacheManager: cacheManager)
+        
         vc.tabBarItem.image = UIImage(named: "HomeSelected")
         
         return vc
     }
     
-    func makeCharacterDetails() -> CharacterDetailsVC {
+    func makeCharacterDetails(model: Custom) -> CharacterDetailsVC {
         let presenter = CharacterDetailsPresenter()
-        return CharacterDetailsVC(presenter: presenter)
+        return CharacterDetailsVC(presenter: presenter, model: model)
     }
     
     func makeFavorites() -> FavoritesVC {
         var output = FavoritesOutput()
         
-        output.onMoveToCharacterDetails = { [weak self] in
+        output.onMoveToCharacterDetails = { [weak self] model in
             guard let self else { return }
-            let vc = self.makeCharacterDetails()
+            let vc = self.makeCharacterDetails(model: model)
             SceneDelegate.router?.push(module: vc, animated: true)
         }
         
         let presenter = FavoritesPresenter(output: output)
-        let vc = FavoritesVC(presenter: presenter)
+        let cacheManager = CacheManager() as CacheManagerProtocol
+        let vc = FavoritesVC(presenter: presenter, cacheManager: cacheManager)
         vc.tabBarItem.image = UIImage(named: "FavoriteSelected")
         
         return vc

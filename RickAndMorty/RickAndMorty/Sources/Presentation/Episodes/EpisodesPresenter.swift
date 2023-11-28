@@ -8,11 +8,11 @@
 import UIKit
 
 protocol EpisodesPresenterProtocol {
-    func moveToCharacterDetailsScreen()
+    func moveToCharacterDetailsScreen(_ model: Custom)
 }
 
 struct EpisodesOutput {
-    var onMoveToCharacterDetails: (() -> Void)!
+    var onMoveToCharacterDetails: ((Custom) -> Void)!
 }
 
 final class EpisodesPresenter {
@@ -27,9 +27,9 @@ final class EpisodesPresenter {
 }
 
 extension EpisodesPresenter: EpisodesPresenterProtocol {
-    func moveToCharacterDetailsScreen() {
-        output.onMoveToCharacterDetails()
+    
+    func moveToCharacterDetailsScreen(_ model: Custom) {
+        output.onMoveToCharacterDetails(model)
     }
+
 }
-
-

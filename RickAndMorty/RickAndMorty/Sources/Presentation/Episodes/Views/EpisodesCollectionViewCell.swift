@@ -84,7 +84,12 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     
     let episodeNameLabel: UILabel = {
         let v = UILabel()
-        v.text = "Pilot | S01E01"
+
+        return v
+    }()
+    
+    let episodeNumberLabel: UILabel = {
+        let v = UILabel()
 
         return v
     }()
@@ -122,6 +127,17 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         
         setupShadow()
     }
+    
+    // MARK: - Configure
+    
+    func configure(episodeName: String, episodeNumber: String,
+        characterImage: UIImage?, characterName: String) {
+        
+        episodeNameLabel.text = episodeName
+        episodeNumberLabel.text = "|  \(episodeNumber)"
+        imageView.image = characterImage
+        nameLabel.text = characterName
+    }
 
     // MARK: - Helpers
     
@@ -144,9 +160,9 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         
         episodeCardView.addSubviews([
             episodePlayButton,
-            episodeNameLabel
+            episodeNameLabel,
+            episodeNumberLabel
         ])
-        
         
     }
 
@@ -159,6 +175,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         
         episodePlayButton.translatesAutoresizingMaskIntoConstraints = false
         episodeNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        episodeNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         episodeFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -176,6 +193,11 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
             episodeNameLabel.centerYAnchor.constraint(
                 equalTo: episodeCardView.centerYAnchor),
             
+            episodeNumberLabel.leadingAnchor.constraint(
+                equalTo: episodeNameLabel.trailingAnchor, constant: 10),
+            episodeNumberLabel.centerYAnchor.constraint(
+                equalTo: episodeCardView.centerYAnchor),
+            
             episodeFavoriteButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor, constant: -20),
             episodeFavoriteButton.centerYAnchor.constraint(
@@ -184,9 +206,11 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         
         paddingView.set(width: 30)
         nameLabel.set(height: 50)
+        imageView.set(height: 240)
         episodeCardView.set(height: 50)
         episodePlayButton.set(width: 34, height: 34)
-        episodeNameLabel.set(width: 150, height: 34)
+        episodeNameLabel.set(width: 110, height: 34)
+        episodeNumberLabel.set(height: 34)
         episodeFavoriteButton.set(width: 40, height: 40)
         
         episodeCardView.layer.cornerRadius = 16
@@ -230,8 +254,19 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
             favoriteButtonState = .checked
         }
         
-        var image = UIImage(named: imageName)
-        episodeFavoriteButton.setImage(image, for: .normal)
+        let image = UIImage(named: imageName)
+
+            UIView.animate(withDuration: 0.2, animations: {
+                self.episodeFavoriteButton.transform = CGAffineTransform(
+                    scaleX: 1.3, y: 1.3)
+            }, completion: { [weak self] _ in
+                guard let self = self else { return }
+                self.episodeFavoriteButton.setImage(image, for: .normal)
+                UIView.animate(withDuration: 0.2) {
+                    self.episodeFavoriteButton.transform = CGAffineTransform.identity
+                }
+            })
+  
     }
 
 

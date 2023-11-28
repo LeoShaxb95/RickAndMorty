@@ -11,12 +11,15 @@ import AVFoundation
 
 final class CharacterDetailsVC: BaseVC {
     
+    // MARK: - Properties
+
+    let titlesArray = ["Gender", "Status", "Specie", "Origin", "Type", "Location"]
+
     // MARK: - Subviews
     
     private var profileImageView: UIImageView = {
         let v = UIImageView()
         v.contentMode = .scaleToFill
-        v.image = UIImage(named: "profileImage")
         v.contentMode = .scaleAspectFill
         v.clipsToBounds = true
         
@@ -26,6 +29,8 @@ final class CharacterDetailsVC: BaseVC {
     private var cameraButton: UIButton = {
         let v = UIButton()
         v.setImage(UIImage(named: "cameraButton"), for: .normal)
+        v.addTarget(self, action: #selector(didSelectCameraButton(_ :)),
+                    for: .touchUpInside)
         
         return v
     }()
@@ -58,17 +63,16 @@ final class CharacterDetailsVC: BaseVC {
         return v
     }()
     
-    private var dataSource: CharacterDetailsDataSource!
     private let presenter: CharacterDetailsPresenterProtocol
+    private var model: Custom?
     var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     
-    init(presenter: CharacterDetailsPresenterProtocol) {
+    init(presenter: CharacterDetailsPresenterProtocol, model: Custom) {
         self.presenter = presenter
+        self.model = model
         super.init(nibName: nil, bundle: nil)
-        
-        self.dataSource = .init(tableView: tableView)
     }
     
     @available(*, unavailable)
@@ -92,6 +96,8 @@ final class CharacterDetailsVC: BaseVC {
         setupSubviews()
         setupTableView()
         setupNavigationBar()
+        setupImage()
+        setupCharacters(name: model?.characterName ?? "Name is Unknown")
         bind()
         
     }
@@ -99,13 +105,6 @@ final class CharacterDetailsVC: BaseVC {
     // MARK: - Bind
     
     public override func bind() {
-        cameraButton
-            .publisher(for: .touchUpInside)
-            .sink { [weak self] _ in
-                guard let self else { return }
-                self.presentAlert()
-            }
-            .store(in: &cancellables)
     }
     
     // MARK: - Setup
@@ -183,10 +182,41 @@ final class CharacterDetailsVC: BaseVC {
     
     private func setupTableView() {
         tableView.delegate = self
-        tableView.dataSource = dataSource
+        tableView.dataSource = self
         tableView.register(CharacterDetailsTableViewCell.self)
         tableView.separatorStyle = .singleLine
     }
+    
+    private func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error downloading image: \(error?.localizedDescription ?? "No error description")")
+                completion(nil)
+                return
+            }
+            completion(UIImage(data: data))
+        }
+        task.resume()
+    }
+    
+    private func setupImage() {
+        
+        if let url = URL(string: model?.characterImage ?? "") {
+            loadImage(from: url) { image in
+                DispatchQueue.main.async {
+                    self.profileImageView.image = image
+                }
+            }
+        }
+
+    }
+    
+    private func setupCharacters(name: String) {
+        DispatchQueue.main.async {
+            self.nameLabel.text = name
+        }
+    }
+
     
     // MARK: - ImagePicker
     
@@ -280,6 +310,10 @@ final class CharacterDetailsVC: BaseVC {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @objc func didSelectCameraButton(_ sender: UIButton) {
+        self.presentAlert()
+    }
+    
 }
 
 //MARK: UIImagePickerControllerDelegate, UINavigationControllerDelegate
@@ -300,5 +334,51 @@ extension CharacterDetailsVC: UITableViewDelegate {
         
         return 64
     }
+}
+
+extension CharacterDetailsVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        titlesArray.count
+    }
+    
+   
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeue(cell: CharacterDetailsTableViewCell.self, for: indexPath)
+
+        if let model = model {
+            switch indexPath.row {
+            case 0:
+                cell.configure(title: titlesArray[indexPath.row],
+                               description: model.gender)
+            case 1:
+
+                cell.configure(title: titlesArray[indexPath.row],
+                               description: model.status)
+            case 2:
+
+                cell.configure(title: titlesArray[indexPath.row],
+                               description: model.specie)
+            case 3:
+
+                cell.configure(title: titlesArray[indexPath.row],
+                               description: model.origin.name)
+            case 4:
+
+                cell.configure(title: titlesArray[indexPath.row],
+                               description: model.type)
+            case 5:
+                cell.configure(title: titlesArray[indexPath.row],
+                               description: model.location.name)
+            default:
+                break
+            }
+            
+        }
+        
+        return cell
+    }
+    
 }
 

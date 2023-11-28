@@ -9,6 +9,11 @@ import UIKit
 import Combine
 
 final class FavoritesVC: BaseVC {
+    
+    // MARK: - Properties
+
+    private let cacheManager: CacheManagerProtocol
+    private var customData: [Custom]? = []
 
     // MARK: - Subviews
     
@@ -33,8 +38,9 @@ final class FavoritesVC: BaseVC {
 
     // MARK: - Init
 
-    init(presenter: FavoritesPresenterProtocol) {
+    init(presenter: FavoritesPresenterProtocol, cacheManager: CacheManagerProtocol) {
         self.presenter = presenter
+        self.cacheManager = cacheManager
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -44,6 +50,13 @@ final class FavoritesVC: BaseVC {
     }
 
     // MARK: - Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchCustomData()
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +108,34 @@ final class FavoritesVC: BaseVC {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(EpisodesCollectionViewCell.self, forCellWithReuseIdentifier: EpisodesCollectionViewCell.identifier)
     }
+    
+    private func fetchCustomData() {
+        self.customData = []
+        guard let favorites = cacheManager.loadArray(withFileName: "favorites")
+            else { return }
+        
+        if let cachedEpisodes = cacheManager.loadObject(
+            forKey: "customData", type: [Custom].self) as? [Custom] {
+            for results in cachedEpisodes {
+                if favorites.contains(results.episodeNumber) {
+                    guard let data = customData else { return }
+                    var contains = false
+                    for element in data {
+                        if element.episodeNumber == results.episodeNumber {
+                            contains = true
+                        }
+                    }
+                    if !contains {
+                        self.customData?.append(results)
+                    }
+                }
+                print("results is \(results)")
+                print("custom is \(customData)")
+            }
+            
+        }
+        collectionView.reloadData()
+    }
 
     // MARK: Callbacks
 
@@ -103,7 +144,7 @@ final class FavoritesVC: BaseVC {
 extension FavoritesVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 2
+        return self.customData?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -112,10 +153,20 @@ extension FavoritesVC: UICollectionViewDataSource {
             for: indexPath) as? EpisodesCollectionViewCell
         else { return UICollectionViewCell() }
         
-        cell.imageView.image = UIImage(named: "profileImage")
-        cell.nameLabel.text = "Rick Sanchez"
-        cell.episodeFavoriteButton.setImage(UIImage(named: "FavoriteFill"),
-                                            for: .normal)
+        var characterImage = cacheManager.loadImage(forKey: self.customData?[indexPath.row].characterName ?? "")
+        
+        if let data = self.customData {
+            cell.configure(
+                episodeName: data[indexPath.row].episodeName,
+                episodeNumber: data[indexPath.row].episodeNumber,
+                characterImage: characterImage,
+                characterName: data[indexPath.row].characterName
+            )
+            cell.episodeFavoriteButton.setImage(UIImage(named: "FavoriteFill"),
+                                                for: .normal)
+        }
+        
+
     
         return cell
     }
@@ -125,7 +176,10 @@ extension FavoritesVC: UICollectionViewDataSource {
 extension FavoritesVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.presenter.moveToCharacterDetailsScreen()
+        guard let model = self.customData
+            else { return }
+        
+        self.presenter.moveToCharacterDetailsScreen(model[indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

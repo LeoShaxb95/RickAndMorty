@@ -8,11 +8,11 @@
 import UIKit
 
 protocol FavoritesPresenterProtocol {
-    func moveToCharacterDetailsScreen()
+    func moveToCharacterDetailsScreen(_ model: Custom)
 }
 
 struct FavoritesOutput {
-    var onMoveToCharacterDetails: (() -> Void)!
+    var onMoveToCharacterDetails: ((Custom) -> Void)!
 }
 
 final class FavoritesPresenter {
@@ -27,8 +27,8 @@ final class FavoritesPresenter {
 }
 
 extension FavoritesPresenter: FavoritesPresenterProtocol {
-    func moveToCharacterDetailsScreen() {
-        output.onMoveToCharacterDetails()
+    func moveToCharacterDetailsScreen(_ model: Custom) {
+        output.onMoveToCharacterDetails(model)
     }
 }
 
